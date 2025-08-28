@@ -1,0 +1,1 @@
+read the file in src/main.cpp directly
