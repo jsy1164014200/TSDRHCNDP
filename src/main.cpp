@@ -51,6 +51,9 @@ using std::stringstream;
 
 
 
+// #include <cstdlib>
+// #include <ctime>
+// using namespace std; 
 
 
 
@@ -189,32 +192,68 @@ int main(int argc, char* argv[])
         pri_graph.link_table.push_back(vector<int>{0, 1, 2, 3, 4, 5, 7});
         pri_graph.link_table.push_back(vector<int>{0, 1, 2, 3, 4, 5, 6});
         
-        unordered_map<int, pair<double, double>> idx2latlon;
-        idx2latlon[0] = {25.040856, 121.518927}; // 台北市医院集合  513
-        idx2latlon[1] = {24.812725, 120.982867}; // 新竹市医院集合  137
-        idx2latlon[2] = {24.074937, 120.541800}; // 彰化县医院集合  91
-        idx2latlon[3] = {23.021108, 120.222027}; // 台南市医院集合  250
-        idx2latlon[4] = {22.646023, 120.309368}; // 高雄市医院集合  778
-        idx2latlon[5] = {24.005497, 121.625107}; // 花莲县医院集合  32
-        idx2latlon[6] = {23.464461, 120.283168}; // 嘉义县医院集合  31
-        idx2latlon[7] = {22.750807, 121.140061}; // 台东县医院集合  38 
-        for(int i = 0; i < 8; ++i) {
-            for(int j = i+1; j < 8; ++j) {
-                double buildcost = (idx2latlon[i].first - idx2latlon[j].first)*(idx2latlon[i].first - idx2latlon[j].first) + (idx2latlon[i].second - idx2latlon[j].second)*(idx2latlon[i].second - idx2latlon[j].second); 
-                // 0-1, 1-2, 2-6, 6-3, 3-4, 4-7, 7-5, 5-0
-                if( (i == 0 && j == 1) || 
-                    (i == 1 && j == 2) || 
-                    (i == 2 && j == 6) || 
-                    (i == 3 && j == 6) ||
-                    (i == 3 && j == 4) ||
-                    (i == 4 && j == 7) ||
-                    (i == 5 && j == 7) ||
-                    (i == 0 && j == 5) )
-                { pri_graph.cost_map[{i, j}] = 2*buildcost*1000; }  // 2 5 8
-                else
-                { pri_graph.cost_map[{i, j}] = buildcost*1000; } 
-            }
-        }
+
+        pri_graph.cost_map[{0, 1}] = 90.7;
+        pri_graph.cost_map[{0, 2}] = 187.0;
+        pri_graph.cost_map[{0, 3}] = 314.0;
+        pri_graph.cost_map[{0, 4}] = 359.0;
+        pri_graph.cost_map[{0, 5}] = 157.0;
+        pri_graph.cost_map[{0, 6}] = 273.0;
+        pri_graph.cost_map[{0, 7}] = 319.0;
+
+        pri_graph.cost_map[{1, 2}] = 110.0;
+        pri_graph.cost_map[{1, 3}] = 237.0;
+        pri_graph.cost_map[{1, 4}] = 282.0;
+        pri_graph.cost_map[{1, 5}] = 236.0;
+        pri_graph.cost_map[{1, 6}] = 197.0;
+        pri_graph.cost_map[{1, 7}] = 440.0;
+
+        pri_graph.cost_map[{2, 3}] = 130.0;
+        pri_graph.cost_map[{2, 4}] = 175.0;
+        pri_graph.cost_map[{2, 5}] = 332.0;
+        pri_graph.cost_map[{2, 6}] = 89.7;
+        pri_graph.cost_map[{2, 7}] = 333.0;
+
+        pri_graph.cost_map[{3, 4}] = 49.6;
+        pri_graph.cost_map[{3, 5}] = 459.0;
+        pri_graph.cost_map[{3, 6}] = 68.3;
+        pri_graph.cost_map[{3, 7}] = 207.0;
+
+        pri_graph.cost_map[{4, 5}] = 332.0;
+        pri_graph.cost_map[{4, 6}] = 113.0;
+        pri_graph.cost_map[{4, 7}] = 166.0;
+
+        pri_graph.cost_map[{5, 6}] = 418.0;
+        pri_graph.cost_map[{5, 7}] = 163.0;
+
+        pri_graph.cost_map[{6, 7}] = 269.0; 
+
+        // unordered_map<int, pair<double, double>> idx2latlon;
+        // idx2latlon[0] = {25.040856, 121.518927}; //0 台北市医院集合  513
+        // idx2latlon[1] = {24.812725, 120.982867}; //1 新竹市医院集合  137
+        // idx2latlon[2] = {24.074937, 120.541800}; //2 彰化县医院集合  91
+        // idx2latlon[3] = {23.021108, 120.222027}; //3 台南市医院集合  250
+        // idx2latlon[4] = {22.646023, 120.309368}; //4 高雄市医院集合  778
+        // idx2latlon[5] = {24.005497, 121.625107}; //5 花莲县医院集合  32
+        // idx2latlon[6] = {23.464461, 120.283168}; //6 嘉义县医院集合  31
+        // idx2latlon[7] = {22.750807, 121.140061}; //7 台东县医院集合  38 
+        // for(int i = 0; i < 8; ++i) {
+        //     for(int j = i+1; j < 8; ++j) {
+        //         double buildcost = (idx2latlon[i].first - idx2latlon[j].first)*(idx2latlon[i].first - idx2latlon[j].first) + (idx2latlon[i].second - idx2latlon[j].second)*(idx2latlon[i].second - idx2latlon[j].second); 
+        //         // 0-1, 1-2, 2-6, 6-3, 3-4, 4-7, 7-5, 5-0
+        //         if( (i == 0 && j == 1) || 
+        //             (i == 1 && j == 2) || 
+        //             (i == 2 && j == 6) || 
+        //             (i == 3 && j == 6) ||
+        //             (i == 3 && j == 4) ||
+        //             (i == 4 && j == 7) ||
+        //             (i == 5 && j == 7) ||
+        //             (i == 0 && j == 5) )
+        //         { pri_graph.cost_map[{i, j}] = buildcost*1000; }  
+        //         else
+        //         { pri_graph.cost_map[{i, j}] = 5*buildcost*1000; } // 2 5 8
+        //     }
+        // }
         
         pri_graph.demand_pairs.push_back({0, 1});     
         pri_graph.demand_pairs.push_back({0, 2}); 
@@ -295,12 +334,15 @@ int main(int argc, char* argv[])
 
 
 
-    // vector<double> v_j_star(Omega.size(), 1.0/Omega.size());  
-    // vector<int> Dpq(8, 8); 
-    // int n_dmd = 8;
-    // int fc_vc = 30; 
-    // int hop_parameter = 5;   
-    // double epsilong = 0.5;  
+    vector<double> v_j_star(Omega.size(), 1.0/Omega.size());  
+    vector<int> Dpq(8, 8); 
+    int n_dmd = 8;
+    int fc_vc = 30; 
+    int hop_parameter = 5;   
+    double epsilong = 0.5;  
+
+
+
       
 
 
@@ -308,236 +350,184 @@ int main(int argc, char* argv[])
 
 
     // case study1 
+    // 844: 211 
 
-    vector<double> v_j_star = {0.0, 40, 32, 27, 38, 9, 20, 32, 46, 15, 27, 43, 12, 32, 20, 31, 3, 13, 0, 16, 0, 14, 0, 13, 0, 0, 4, 3, 2, 2, 0, 11, 0, 10, 0, 11, 0, 0, 3, 2, 27, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 6, 2, 2, 4, 0, 1, 1, 0, 17, 0, 13, 0, 0, 3, 3, 29, 0, 25, 0, 0, 15, 3, 0, 23, 1, 0, 0, 14, 15, 5, 0, 2, 2, 0, 0, 0, 0, 12, 28, 16, 12, 0, 14}; 
-    double d = accumulate(v_j_star.begin(), v_j_star.end(), 0.0);
-    cout << d << endl; 
-    for(double& item : v_j_star) {
-        item /= d; 
-    }
-    d = accumulate(v_j_star.begin(), v_j_star.end(), 0.0);
-    cout << d << endl; 
+
+    // // vector<double> vjtotal = {0.0, 40, 32, 27, 38, 9, 20, 32, 46, 15, 27, 43, 12, 32, 20, 31, 3, 13, 0, 16, 0, 14, 0, 13, 0, 0, 4, 3, 2, 2, 0, 11, 0, 10, 0, 11, 0, 0, 3, 2, 27, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 6, 2, 2, 4, 0, 1, 1, 0, 17, 0, 13, 0, 0, 3, 3, 29, 0, 25, 0, 0, 15, 3, 0, 23, 1, 0, 0, 14, 15, 5, 0, 2, 2, 0, 0, 0, 0, 12, 28, 16, 12, 0, 14};
     
+    // // for(int iter = 0; iter < 4; ++iter) {
+    // //     vector<double> v_j_star(vjtotal.size()); 
+    // //     vector<int> notzeroidx;
+    // //     for(int i = 0; i < vjtotal.size(); ++i) {
+    // //         if(vjtotal[i] > 0) {
+    // //             notzeroidx.push_back(i);  
+    // //             cout << i << endl; 
+    // //         }
+    // //     }
+    // //     random_device rd_y;  
+    // //     mt19937 gen_y(rd_y()); 
+    // //     uniform_int_distribution<> dis_y(0, notzeroidx.size()-1);
+    // //     for(int i = 0; i < 211; ++i) {   
+    // //         int addidx = notzeroidx[dis_y(gen_y)]; 
+    // //         // cout << addidx << " "; 
+    // //         if(vjtotal[addidx] > 0) { 
+    // //             v_j_star[addidx] += 1.0; 
+    // //             vjtotal[addidx] -= 1.0; 
+    // //         } 
+    // //         else {
+    // //             --i; 
+    // //         }
+    // //     }
 
-    vector<int> Dpq = {1650, 3514, 1944, 12797, 3, 22, 5, 7, 59, 1, 1, 26, 11, 26, 172, 696, 5, 35, 14, 85}; 
-    int n_dmd = Dpq.size();
-    int fc_vc = 6000; 
-    int hop_parameter = 2;  
-    double epsilong = 0.5;   
+    // //     for(const double& item : v_j_star) {
+    // //         cout << item << ", "; 
+    // //     }
+    // //     cout << endl;
+
+    // //     for(const double& item : vjtotal) {
+    // //         cout << item << ", "; 
+    // //     }
+    // //     cout << endl;
+    // // }
+     
+
+    // vector<double> v_j_star1 = {0, 1, 5, 1, 3, 3, 2, 2, 3, 4, 3, 3, 7, 9, 3, 2, 3, 7, 0, 5, 0, 4, 0, 1, 0, 0, 4, 3, 2, 2, 0, 3, 0, 6, 0, 3, 0, 0, 3, 2, 4, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 3, 2, 2, 4, 0, 1, 1, 0, 11, 0, 6, 0, 0, 3, 3, 4, 0, 6, 0, 0, 4, 3, 0, 4, 1, 0, 0, 5, 5, 1, 0, 2, 2, 0, 0, 0, 0, 5, 5, 4, 5, 0, 8};
+    // vector<double> v_j_star2 = {0, 3, 2, 3, 6, 6, 10, 3, 5, 7, 3, 7, 4, 8, 2, 5, 0, 6, 0, 6, 0, 4, 0, 4, 0, 0, 0, 0, 0, 0, 0, 3, 0, 4, 0, 8, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 3, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 6, 0, 0, 0, 0, 9, 0, 8, 0, 0, 3, 0, 0, 5, 0, 0, 0, 9, 8, 4, 0, 0, 0, 0, 0, 0, 0, 7, 10, 6, 4, 0, 2};
+    // vector<double> v_j_star3 = {0, 7, 9, 12, 10, 0, 8, 6, 12, 4, 8, 9, 1, 11, 8, 11, 0, 0, 0, 5, 0, 6, 0, 8, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 0, 0, 0, 0, 16, 0, 8, 0, 0, 8, 0, 0, 8, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 3, 0, 4};
+    // vector<double> v_j_star4 = {0, 29, 16, 11, 19, 0, 0, 21, 26, 0, 13, 24, 0, 4, 7, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0}; 
+    // vector<double> v_j_star(v_j_star1.size()); 
+    // for(int i  = 0; i < v_j_star.size(); ++i) {
+    //     v_j_star[i] = v_j_star1[i] + v_j_star2[i] + v_j_star3[i] + v_j_star4[i];
+    //     // cout << v_j_star[i] << endl; 
+    // }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // casestudy2  
-    // vector<double> v_j_star = {4, 9, 23, 26, 38, 13, 52, 3, 14, 17, 35, 7, 31, 8, 12, 39, 3, 15, 1, 58, 4, 11, 56, 5, 8, 51, 64, 16, 4, 4, 4, 4, 4, 4, 1, 1, 1, 2, 1, 1, 0, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 2, 0, 7, 7, 5, 8, 5, 3, 4, 4, 6, 4, 3, 0, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 2, 0, 15, 8, 11, 8, 2, 11, 13, 7, 4, 6, 7, 10, 5, 2, 4, 1, 8, 4, 2, 4, 5, 1, 8, 2, 5, 10, 8, 15, 2, 5, 9, 9, 2, 13, 2, 4, 8, 0, 5, 1, 13, 2, 3, 11, 2, 1, 11, 2, 3, 5, 20, 1, 1, 1, 32, 1, 2, 0, 0, 29, 0, 0, 0, 27, 0, 0, 27, 0, 0, 27, 27, 0, 5, 2, 7, 6, 6, 6, 4, 3, 4, 3, 3, 1, 0, 3, 1, 0, 2, 1, 0, 5, 2, 1, 1, 1, 1, 16, 1, 21, 0, 0, 20, 0, 9, 0, 30, 0, 6, 31, 0, 6, 25, 35, 6, 3, 3, 2, 3, 2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 11, 3, 7, 5, 8, 10, 1, 3, 2, 1, 5, 4, 2, 2, 5, 1, 5, 1, 4, 3, 5, 6, 5, 9, 3, 1, 4, 1, 8, 2, 3, 4, 3, 1, 6, 1, 6, 3, 4, 0, 0, 29, 0, 0, 0, 27, 0, 0, 27, 0, 0, 27, 27, 0, 3, 3, 3, 1, 3, 0, 0, 1, 1, 0, 1, 1, 0, 3, 1, 1, 1, 2, 7, 0, 14, 0, 16, 1, 8, 15, 1, 7, 15, 13, 9, 8, 0, 3, 1, 1, 3, 4, 2, 1, 5, 1, 2, 0, 4, 0, 3, 2, 1, 6, 4, 2, 1, 5, 1, 4, 0, 6, 0, 1, 0, 35, 0, 0, 35, 0, 0, 35, 30, 0, 0, 0, 0, 1, 0, 0, 1, 0, 2, 0, 1, 0, 4, 1, 8, 4, 1, 7, 3, 8, 9, 1, 1, 1, 0, 1, 0, 0, 0, 0, 2, 2, 52, 3, 1, 46, 41, 4, 2, 1, 4, 1, 1, 0, 2, 3, 2, 7, 0, 6, 10, 1, 1, 44, 42, 4, 1, 1, 0, 3, 0, 6, 7, 35, 1, 6};
     // double d = accumulate(v_j_star.begin(), v_j_star.end(), 0.0);
     // cout << d << endl; 
     // for(double& item : v_j_star) {
     //     item /= d; 
     // }
     // d = accumulate(v_j_star.begin(), v_j_star.end(), 0.0);
-    // cout << d << endl; 
-     
+    // cout << d << endl;
+ 
+    
 
+    // vector<int> Dpq = {1650, 3514, 1944, 12797, 3, 22, 5, 7, 59, 1, 1, 26, 11, 26, 172, 696, 5, 35, 14, 85}; 
+    // int n_dmd = Dpq.size();
+    // int fc_vc = 6000; 
+    // int hop_parameter = 3;  
+    // double epsilong = 0.8;   
+
+
+    // // for(double epsilong = 0.1; epsilong < 2.1; epsilong += 0.1) {
+    // //     vector<int> ds_opt = solve_mainproblem(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong);
+    // //     vector<double> qval = solve_Q_giveny(pri_graph, Omega, vector<double>(), Dpq, n_dmd, fc_vc, hop_parameter, 0.0, ds_opt);
+    // //     // out-of-sample performance 
+    // //     double avg_val = 0.0; 
+    // //     for(int i = 0; i < v_j_star1.size(); ++i) {
+    // //         avg_val += v_j_star1[i] * qval[i]; 
+    // //     }
+    // //     avg_val /= accumulate(v_j_star1.begin(), v_j_star1.end(), 0.0);
+
+    // //     cout << "epsilon: " << epsilong << ", " << avg_val << "." << endl; 
+    // // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // casestudy2   2544   636
+    // // vector<double> vjtotal = {4, 9, 23, 26, 38, 13, 52, 3, 14, 17, 35, 7, 31, 8, 12, 39, 3, 15, 1, 58, 4, 11, 56, 5, 8, 51, 64, 16, 4, 4, 4, 4, 4, 4, 1, 1, 1, 2, 1, 1, 0, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 2, 0, 7, 7, 5, 8, 5, 3, 4, 4, 6, 4, 3, 0, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 2, 0, 15, 8, 11, 8, 2, 11, 13, 7, 4, 6, 7, 10, 5, 2, 4, 1, 8, 4, 2, 4, 5, 1, 8, 2, 5, 10, 8, 15, 2, 5, 9, 9, 2, 13, 2, 4, 8, 0, 5, 1, 13, 2, 3, 11, 2, 1, 11, 2, 3, 5, 20, 1, 1, 1, 32, 1, 2, 0, 0, 29, 0, 0, 0, 27, 0, 0, 27, 0, 0, 27, 27, 0, 5, 2, 7, 6, 6, 6, 4, 3, 4, 3, 3, 1, 0, 3, 1, 0, 2, 1, 0, 5, 2, 1, 1, 1, 1, 16, 1, 21, 0, 0, 20, 0, 9, 0, 30, 0, 6, 31, 0, 6, 25, 35, 6, 3, 3, 2, 3, 2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 11, 3, 7, 5, 8, 10, 1, 3, 2, 1, 5, 4, 2, 2, 5, 1, 5, 1, 4, 3, 5, 6, 5, 9, 3, 1, 4, 1, 8, 2, 3, 4, 3, 1, 6, 1, 6, 3, 4, 0, 0, 29, 0, 0, 0, 27, 0, 0, 27, 0, 0, 27, 27, 0, 3, 3, 3, 1, 3, 0, 0, 1, 1, 0, 1, 1, 0, 3, 1, 1, 1, 2, 7, 0, 14, 0, 16, 1, 8, 15, 1, 7, 15, 13, 9, 8, 0, 3, 1, 1, 3, 4, 2, 1, 5, 1, 2, 0, 4, 0, 3, 2, 1, 6, 4, 2, 1, 5, 1, 4, 0, 6, 0, 1, 0, 35, 0, 0, 35, 0, 0, 35, 30, 0, 0, 0, 0, 1, 0, 0, 1, 0, 2, 0, 1, 0, 4, 1, 8, 4, 1, 7, 3, 8, 9, 1, 1, 1, 0, 1, 0, 0, 0, 0, 2, 2, 52, 3, 1, 46, 41, 4, 2, 1, 4, 1, 1, 0, 2, 3, 2, 7, 0, 6, 10, 1, 1, 44, 42, 4, 1, 1, 0, 3, 0, 6, 7, 35, 1, 6};
+    
+    // // for(int iter = 0; iter < 4; ++iter) {
+    // //     vector<double> v_j_star(vjtotal.size()); 
+    // //     vector<int> notzeroidx;
+    // //     for(int i = 0; i < vjtotal.size(); ++i) {
+    // //         if(vjtotal[i] > 0) {
+    // //             notzeroidx.push_back(i);  
+    // //             cout << i << endl; 
+    // //         }
+    // //     }
+    // //     random_device rd_y;  
+    // //     mt19937 gen_y(rd_y()); 
+    // //     uniform_int_distribution<> dis_y(0, notzeroidx.size()-1);
+    // //     for(int i = 0; i < 636; ++i) {   
+    // //         int addidx = notzeroidx[dis_y(gen_y)]; 
+    // //         // cout << addidx << " "; 
+    // //         if(vjtotal[addidx] > 0) { 
+    // //             v_j_star[addidx] += 1.0; 
+    // //             vjtotal[addidx] -= 1.0; 
+    // //         } 
+    // //         else {
+    // //             --i; 
+    // //         }
+    // //     }
+
+    // //     for(const double& item : v_j_star) {
+    // //         cout << item << ", "; 
+    // //     }
+    // //     cout << endl;
+
+    // //     for(const double& item : vjtotal) {
+    // //         cout << item << ", "; 
+    // //     }
+    // //     cout << endl;
+    // // }
+    
+    
+    // vector<double> v_j_star1 = {3, 4, 2, 3, 1, 2, 4, 3, 0, 1, 2, 5, 4, 3, 4, 3, 1, 3, 1, 2, 3, 0, 1, 1, 0, 0, 2, 3, 1, 2, 3, 3, 3, 2, 1, 1, 1, 2, 1, 1, 0, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 1, 0, 3, 1, 5, 4, 2, 3, 2, 4, 4, 1, 2, 0, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 4, 1, 3, 2, 2, 1, 4, 2, 3, 2, 4, 3, 2, 2, 1, 2, 2, 2, 2, 4, 1, 1, 2, 3, 5, 3, 6, 2, 2, 2, 3, 2, 4, 2, 4, 1, 0, 5, 1, 4, 2, 3, 1, 2, 1, 1, 2, 1, 3, 4, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 2, 1, 2, 3, 2, 2, 4, 3, 3, 1, 0, 2, 1, 0, 2, 1, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 3, 0, 1, 0, 4, 0, 5, 2, 0, 2, 3, 3, 1, 3, 2, 2, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 2, 3, 2, 3, 4, 1, 3, 2, 1, 2, 4, 2, 2, 3, 1, 4, 1, 1, 0, 5, 1, 3, 5, 3, 1, 4, 1, 3, 2, 2, 3, 3, 1, 2, 1, 2, 1, 3, 0, 0, 2, 0, 0, 0, 5, 0, 0, 1, 0, 0, 3, 2, 0, 3, 2, 3, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 2, 1, 1, 1, 1, 2, 0, 3, 0, 4, 1, 0, 4, 0, 2, 2, 1, 1, 7, 0, 3, 1, 1, 3, 0, 2, 1, 2, 1, 2, 0, 1, 0, 3, 2, 1, 2, 4, 2, 1, 2, 1, 3, 0, 2, 0, 1, 0, 4, 0, 0, 1, 0, 0, 2, 4, 0, 0, 0, 0, 1, 0, 0, 1, 0, 2, 0, 0, 0, 4, 1, 3, 2, 1, 2, 3, 2, 2, 1, 1, 1, 0, 1, 0, 0, 0, 0, 2, 2, 3, 3, 0, 1, 4, 0, 0, 1, 3, 1, 1, 0, 2, 1, 2, 2, 0, 2, 3, 1, 1, 5, 2, 4, 1, 1, 0, 3, 0, 5, 3, 2, 1, 4};
+    // vector<double> v_j_star2 = {1, 5, 6, 3, 7, 2, 2, 0, 10, 3, 4, 2, 6, 5, 8, 4, 2, 5, 0, 6, 1, 4, 7, 3, 8, 1, 7, 5, 3, 2, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 6, 0, 3, 3, 0, 2, 0, 2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 9, 4, 4, 5, 0, 4, 6, 3, 2, 3, 5, 6, 2, 0, 2, 0, 5, 2, 0, 2, 1, 0, 4, 0, 2, 5, 1, 7, 0, 3, 6, 1, 0, 4, 0, 0, 7, 0, 0, 0, 5, 0, 0, 6, 0, 0, 4, 0, 2, 2, 8, 0, 0, 0, 7, 0, 2, 0, 0, 5, 0, 0, 0, 4, 0, 0, 1, 0, 0, 3, 3, 0, 2, 2, 5, 5, 1, 3, 2, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 4, 0, 3, 0, 0, 6, 0, 2, 0, 1, 0, 1, 7, 0, 4, 6, 2, 5, 0, 1, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 1, 4, 2, 5, 6, 0, 0, 0, 0, 3, 0, 0, 0, 2, 0, 1, 0, 3, 3, 0, 3, 2, 4, 0, 0, 0, 0, 5, 0, 1, 1, 0, 0, 2, 0, 4, 2, 1, 0, 0, 3, 0, 0, 0, 3, 0, 0, 4, 0, 0, 2, 5, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 7, 0, 11, 0, 5, 3, 1, 4, 10, 3, 6, 1, 0, 0, 0, 0, 0, 4, 0, 0, 3, 0, 0, 0, 2, 0, 0, 0, 0, 4, 0, 0, 0, 3, 0, 1, 0, 4, 0, 0, 0, 4, 0, 0, 5, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 5, 2, 0, 3, 0, 6, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1, 6, 10, 2, 2, 0, 1, 0, 0, 0, 0, 2, 0, 2, 0, 4, 5, 0, 0, 4, 2, 0, 0, 0, 0, 0, 0, 1, 4, 5, 0, 2};
+    // vector<double> v_j_star3 = {0, 0, 7, 10, 16, 9, 7, 0, 4, 13, 15, 0, 11, 0, 0, 23, 0, 7, 0, 14, 0, 7, 20, 1, 0, 13, 9, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 6, 0, 0, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3, 0, 0, 0, 4, 2, 0, 0, 1, 5, 0, 5, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 6, 0, 0, 0, 8, 0, 0, 0, 15, 0, 0, 0, 0, 7, 0, 0, 0, 10, 0, 0, 10, 0, 0, 8, 13, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 8, 0, 15, 0, 0, 8, 0, 6, 0, 8, 0, 0, 10, 0, 0, 14, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 19, 0, 0, 11, 0, 0, 7, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 4, 0, 1, 0, 3, 8, 0, 1, 3, 9, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 11, 0, 0, 5, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 13, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 2, 0, 0, 12, 10, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0};
+    // vector<double> v_j_star4 = {0, 0, 8, 10, 14, 0, 39, 0, 0, 0, 14, 0, 10, 0, 0, 9, 0, 0, 0, 36, 0, 0, 28, 0, 0, 37, 46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 17, 0, 0, 0, 9, 0, 0, 13, 0, 0, 15, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 2, 0, 0, 3, 0, 0, 0, 17, 0, 0, 12, 0, 0, 2, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 11, 0, 0, 15, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0, 18, 0, 0, 23, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 26, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 28, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0}; 
+    // vector<double> v_j_star(v_j_star1.size()); 
+    // for(int i  = 0; i < v_j_star.size(); ++i) {
+    //     v_j_star[i] = v_j_star1[i] + v_j_star2[i] + v_j_star3[i] + v_j_star4[i];
+    //     // cout << v_j_star[i] << endl; 
+    // }
+
+
+    // double d = accumulate(v_j_star.begin(), v_j_star.end(), 0.0);
+    // cout << d << endl; 
+    // for(double& item : v_j_star) {
+    //     item /= d; 
+    // }
+    // d = accumulate(v_j_star.begin(), v_j_star.end(), 0.0);
+    // cout << d << endl;
+ 
+ 
     // vector<int> Dpq = {14, 17, 42, 88, 3, 2, 3, 1, 1, 2, 4, 3, 6, 3, 1, 15, 1, 8, 1, 1}; 
     // int n_dmd = Dpq.size();
     // int fc_vc = 30; 
     // int hop_parameter = 2;  
-    // double epsilong = 0.5;   
+    // double epsilong = 10;  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Omega.clear();
-    // Omega.push_back(vector<int>(pri_graph.cost_map.size(),1));  
-    // vector<int> opt_val{1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1};
-
-    // vector<vector<bool>> mylink_table(pri_graph.link_table.size(), vector<bool>(pri_graph.link_table.size(), false));
-    // int tmp_idx = 0; 
-    // for(const auto& item : pri_graph.cost_map) { 
-    //     if(opt_val[tmp_idx] == 1) { 
-    //         mylink_table[item.first.first][item.first.second] = true;
-    //         mylink_table[item.first.second][item.first.first] = true;
-    //     }
-    //     ++tmp_idx; 
-    // }
-
-    // // for(int i = 0; i < pri_graph.link_table.size(); ++i) {
-    // //     for(int j = 0; j < pri_graph.link_table.size(); ++j) {
-    // //         cout << mylink_table[i][j] << " ";
+    // // for(double epsilong = 2; epsilong < 10; epsilong += 1) {
+    // //     vector<int> ds_opt = solve_mainproblem(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong);
+    // //     vector<double> qval = solve_Q_giveny(pri_graph, Omega, vector<double>(), Dpq, n_dmd, fc_vc, hop_parameter, 0.0, ds_opt);
+    // //     // out-of-sample performance 
+    // //     double avg_val = 0.0; 
+    // //     for(int i = 0; i < v_j_star4.size(); ++i) {
+    // //         avg_val += v_j_star4[i] * qval[i]; 
     // //     }
-    // //     cout << endl; 
-    // // }
+    // //     avg_val /= accumulate(v_j_star4.begin(), v_j_star4.end(), 0.0);
 
-    // // 节点数目
-    // // 边数目
-    // // 平均度 
-    // // average hop: given
-    // int n_node = 0;
-    // int n_edge = 0;
-    // double avg_degree = 0.0; 
-    // double avg_hop = 0.0;
-    // for(int i = 0; i < pri_graph.link_table.size(); ++i) {
-    //     bool is_building = false;  
-    //     for(int j = i+1; j < pri_graph.link_table.size(); ++j) {
-    //         if(mylink_table[i][j]) {
-    //             ++n_edge;
-    //             is_building = true;  
-    //         } 
-    //     }
-    //     if(is_building) ++n_node;  
-    // }
-    // for(int i = 0; i < pri_graph.link_table.size(); ++i) {
-    //     int degree = 0;  
-    //     for(int j = 0; j < pri_graph.link_table.size(); ++j) {
-    //         if(mylink_table[i][j]) {
-    //             ++degree; 
-    //         } 
-    //     }
-    //     avg_degree += degree; 
-    //     // cout << i << " degree: " << degree << endl; 
-    // }
-
-    
-    
-    // cout << "节点数目: " << n_node << endl; 
-    // cout << "边数目: " << n_edge << endl; 
-    // cout << "平均度: " << avg_degree / n_node << endl;  
-    // solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, opt_val); 
-
-
-
-    // pioro40
-    // vector<int> trad_solution{0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    
-    // vector<int> knninte_solution{0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0};
-    // vector<int> lrinte_solution{0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0};
-    // // double trad_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, trad_solution);
-    // // double knninte_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, knninte_solution);
-    // // double lrinte_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, lrinte_solution);
-    // // cout << trad_ov << " " << knninte_ov << " " << lrinte_ov << endl; 
-
-    // vector<double> tradcost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, trad_solution);
-    // vector<double> knnintecost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, knninte_solution);
-    // vector<double> lrintecost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, lrinte_solution);
-
-    // cout << accumulate(tradcost.begin(), tradcost.end(), 0.0) / Omega.size() << endl; 
-    // cout << accumulate(knnintecost.begin(), knnintecost.end(), 0.0) / Omega.size() << endl; 
-    // cout << accumulate(lrintecost.begin(), lrintecost.end(), 0.0) / Omega.size() << endl; 
-
-
-
-    // sun
-    // vector<int> trad_solution{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    
-    // vector<int> knninte_solution{0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0};
-    // vector<int> lrinte_solution{0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0};
-    // // double trad_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, trad_solution);
-    // // double knninte_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, knninte_solution);
-    // // double lrinte_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, lrinte_solution);
-    // // cout << trad_ov << " " << knninte_ov << " " << lrinte_ov << endl; 
-
-    // vector<double> tradcost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, trad_solution);
-    // vector<double> knnintecost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, knninte_solution);
-    // vector<double> lrintecost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, lrinte_solution);
-
-    // cout << accumulate(tradcost.begin(), tradcost.end(), 0.0) / Omega.size() << endl; 
-    // cout << accumulate(knnintecost.begin(), knnintecost.end(), 0.0) / Omega.size() << endl; 
-    // cout << accumulate(lrintecost.begin(), lrintecost.end(), 0.0) / Omega.size() << endl; 
-
-
-
-
-    // ta2
-    // vector<int> trad_solution{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    
-    // vector<int> knninte_solution{1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0};
-    // vector<int> lrinte_solution{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,0,1,0,1,0,1,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0};
-    // // double trad_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, trad_solution);
-    // // double knninte_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, knninte_solution);
-    // // double lrinte_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, lrinte_solution);
-    // // cout << trad_ov << " " << knninte_ov << " " << lrinte_ov << endl; 
-
-    // vector<double> tradcost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, trad_solution);
-    // vector<double> knnintecost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, knninte_solution);
-    // vector<double> lrintecost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, lrinte_solution);
-
-    // cout << accumulate(tradcost.begin(), tradcost.end(), 0.0) / Omega.size() << endl; 
-    // cout << accumulate(knnintecost.begin(), knnintecost.end(), 0.0) / Omega.size() << endl; 
-    // cout << accumulate(lrintecost.begin(), lrintecost.end(), 0.0) / Omega.size() << endl; 
-
-
-
-    // zib54
-    // vector<int> trad_solution{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0};
-    
-    // vector<int> knninte_solution{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0};
-    // vector<int> lrinte_solution{1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0};
-    // // double trad_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, trad_solution);
-    // // double knninte_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, knninte_solution);
-    // // double lrinte_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, lrinte_solution);
-    // // cout << trad_ov << " " << knninte_ov << " " << lrinte_ov << endl; 
-
-    // vector<double> tradcost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, trad_solution);
-    // vector<double> knnintecost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, knninte_solution);
-    // vector<double> lrintecost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, lrinte_solution);
-
-    // cout << accumulate(tradcost.begin(), tradcost.end(), 0.0) / Omega.size() << endl; 
-    // cout << accumulate(knnintecost.begin(), knnintecost.end(), 0.0) / Omega.size() << endl; 
-    // cout << accumulate(lrintecost.begin(), lrintecost.end(), 0.0) / Omega.size() << endl; 
-
-
-    // rrs
-    // vector<int> trad_solution{0,0,1,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1};
-    
-    // vector<int> knninte_solution{1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1};
-    // vector<int> lrinte_solution{1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1};
-    // // double trad_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, trad_solution);
-    // // double knninte_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, knninte_solution);
-    // // double lrinte_ov = solve_mainproblem_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, lrinte_solution);
-    // // cout << trad_ov << " " << knninte_ov << " " << lrinte_ov << endl; 
-
-    // vector<double> tradcost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, trad_solution);
-    // vector<double> knnintecost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, knninte_solution);
-    // vector<double> lrintecost = solve_Q_giveny(pri_graph, Omega, v_j_star, Dpq, n_dmd, fc_vc, hop_parameter, epsilong, lrinte_solution);
-
-    // cout << accumulate(tradcost.begin(), tradcost.end(), 0.0) / Omega.size() << endl; 
-    // cout << accumulate(knnintecost.begin(), knnintecost.end(), 0.0) / Omega.size() << endl; 
-    // cout << accumulate(lrintecost.begin(), lrintecost.end(), 0.0) / Omega.size() << endl; 
-
-
+    // //     cout << "epsilon: " << epsilong << ", " << avg_val << "." << endl; 
+    // // } 
 
 
 
@@ -551,15 +541,6 @@ int main(int argc, char* argv[])
     // steady_clock::time_point callback_end = steady_clock::now();
     // cout << "LShape Callback Solve 算法结束运行" << endl; 
     // cout << "LShape Callback Solve 算法耗时: " << (callback_end - callback_start).count() / 1e9 << " 秒" << endl; 
-
-
-
-
-
-
-
-
-
 
 
 

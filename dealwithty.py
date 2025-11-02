@@ -94,22 +94,22 @@ def plot_world_map_with_lines(locations, connections, title="Map"):
     }
     
     # 定义要连接的城市对
-    # city_connections = [
-    #     ('Nanjing', 'Kunshan'),
-    #     ('Nanjing', 'Shanghai'),
-    #     ('Nanjing', 'Hangzhou'), 
-    #     ('Nanjing', 'Yiwu'),
-    #     ('Kunshan', 'Shanghai'),
-    #     ('Kunshan', 'Hangzhou'),
-    #     ('Kunshan', 'Wenzhou'),
-    #     ('Kunshan', 'Yiwu'),
-    #     ('Shanghai', 'Hangzhou'),
-    #     ('Shanghai', 'Wenzhou'),
-    #     ('Shanghai', 'Yiwu'),
-    #     ('Hangzhou', 'Wenzhou'),
-    #     ('Hangzhou', 'Yiwu'),
-    #     ('Wenzhou', 'Yiwu'),
-    # ]
+    city_connections = [
+        ('Nanjing', 'Kunshan'),
+        ('Nanjing', 'Shanghai'),
+        ('Nanjing', 'Hangzhou'), 
+        ('Nanjing', 'Yiwu'),
+        ('Kunshan', 'Shanghai'),
+        ('Kunshan', 'Hangzhou'),
+        ('Kunshan', 'Wenzhou'),
+        ('Kunshan', 'Yiwu'),
+        ('Shanghai', 'Hangzhou'),
+        ('Shanghai', 'Wenzhou'),
+        ('Shanghai', 'Yiwu'),
+        ('Hangzhou', 'Wenzhou'),
+        ('Hangzhou', 'Yiwu'),
+        ('Wenzhou', 'Yiwu'),
+    ]
 
     ########### solution #################
     # Objective: 3853.92 first stage cost: 2083 0.05 
@@ -155,18 +155,82 @@ def plot_world_map_with_lines(locations, connections, title="Map"):
     # ]  
 
     # Objective: 3893.73 first stage cost: 2378 hop 3  4
+    # city_connections = [
+    #     ('Nanjing', 'Kunshan'),
+    #     ('Nanjing', 'Shanghai'),
+    #     ('Nanjing', 'Hangzhou'),  
+    #     ('Kunshan', 'Shanghai'), 
+    #     ('Kunshan', 'Yiwu'),
+    #     ('Shanghai', 'Hangzhou'),
+    #     ('Shanghai', 'Wenzhou'), 
+    #     ('Hangzhou', 'Wenzhou'),
+    #     ('Hangzhou', 'Yiwu'),
+    #     ('Wenzhou', 'Yiwu'),
+    # ] 
+
+    # ('Nanjing', 'Kunshan'),
+    # ('Nanjing', 'Shanghai'),
+    # ('Nanjing', 'Hangzhou'), 
+    # ('Nanjing', 'Yiwu'),
+    # ('Kunshan', 'Shanghai'),
+    # ('Kunshan', 'Hangzhou'),
+    # ('Kunshan', 'Wenzhou'),
+    # ('Kunshan', 'Yiwu'),
+    # ('Shanghai', 'Hangzhou'),
+    # ('Shanghai', 'Wenzhou'),
+    # ('Shanghai', 'Yiwu'),
+    # ('Hangzhou', 'Wenzhou'),
+    # ('Hangzhou', 'Yiwu'),
+    # ('Wenzhou', 'Yiwu'),
+
+    # 0 Shanghai 
+    # 1 Kunshan 
+    # 2 Nanjing 
+    # 3 Hangzhou 
+    # 4 Wenzhou 
+    # 5 Yiwu  
+
+    
+
+    # Objective: 4115.45  first stage cost: 2662 hop 2
     city_connections = [
         ('Nanjing', 'Kunshan'),
         ('Nanjing', 'Shanghai'),
         ('Nanjing', 'Hangzhou'),  
+        ('Kunshan', 'Shanghai'),
+        ('Kunshan', 'Hangzhou'),  
+        ('Shanghai', 'Hangzhou'),
+        ('Shanghai', 'Wenzhou'),
+        ('Shanghai', 'Yiwu'),
+        ('Hangzhou', 'Wenzhou'),
+        ('Hangzhou', 'Yiwu'),
+        ('Wenzhou', 'Yiwu'),
+    ] 
+
+    # Objective: 9063.08  first stage cost: 1288 hop 1
+    city_connections = [
+        ('Nanjing', 'Shanghai'), 
         ('Kunshan', 'Shanghai'), 
-        ('Kunshan', 'Yiwu'),
+        ('Shanghai', 'Hangzhou'),
+        ('Shanghai', 'Wenzhou'),
+        ('Shanghai', 'Yiwu'), 
+    ]
+    # Objective: 3965.88  first stage cost: 2378 hop 3
+    city_connections = [ 
+        ('Nanjing', 'Kunshan'),
+        ('Nanjing', 'Shanghai'),
+        ('Nanjing', 'Hangzhou'),  
+        ('Kunshan', 'Shanghai'),
+        ('Kunshan', 'Hangzhou'), 
         ('Shanghai', 'Hangzhou'),
         ('Shanghai', 'Wenzhou'), 
         ('Hangzhou', 'Wenzhou'),
         ('Hangzhou', 'Yiwu'),
         ('Wenzhou', 'Yiwu'),
-    ] 
+
+    ]
+
+
 
     ########### solution #################
 

@@ -169,7 +169,7 @@ def extract_ori_content(text):
  
 with open("taiwanorides.csv", 'a') as fp:
     session = requests.Session()
-    years = list(range(114, 113, -1))
+    years = list(range(113, 112, -1))
     for year in years:
         url = f"https://web.pcc.gov.tw/prkms/tender/common/bulletion/readBulletion?querySentence=%E9%86%AB%E8%97%A5%E7%94%A2%E5%93%81&tenderStatusType=%E6%B1%BA%E6%A8%99&sortCol=AWARD_NOTICE_DATE&pageSize=100&timeRange={year}"
         htmldata = session.get(url).text 
